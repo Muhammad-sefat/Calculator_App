@@ -20,7 +20,7 @@ body {
   border-radius: 10px;
 }
 .calculator .output {
-  background: cornflowerblue;
+  background: rgb(222, 110, 25);
   color: #fff;
   grid-column: 1/5;
   display: flex;
@@ -29,6 +29,8 @@ body {
   padding: 20px;
   border-radius: 5px;
   font-size: 36px;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .calculator button {
@@ -45,4 +47,9 @@ body {
 }
 .colom-two {
   grid-column: span 2;
+}
+
+.calculator button:last-child {
+  background-color: rgb(222, 110, 25);
+  color: #fff;
 }
