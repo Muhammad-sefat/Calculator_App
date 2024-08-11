@@ -20,4 +20,29 @@ body {
   border-radius: 10px;
 }
 .calculator .output {
+  background: cornflowerblue;
+  color: #fff;
+  grid-column: 1/5;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 36px;
+}
+
+.calculator button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  box-shadow: 0px 0px 8px #999999;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.calculator button:hover {
+  background: #d4d4d4;
+}
+.colom-two {
+  grid-column: span 2;
 }
