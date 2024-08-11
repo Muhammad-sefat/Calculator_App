@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+  background: darkslategray;
+}
+.calculator {
+  background: #fff;
+  width: 100%;
+  min-height: 80vh;
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 30px auto;
+  padding: 20px;
+  gap: 8px;
+  border-radius: 10px;
+}
+.calculator .output {
+}
