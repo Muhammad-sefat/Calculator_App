@@ -9,12 +9,12 @@ const decimalBtn = document.getElementById("decimal-button");
 const equalBtn = document.getElementById("equal-button");
 const number = document.querySelectorAll(".number");
 
-// initialize variable
+// Initialize variables
 let result = "";
 let operation = "";
-let previousOperand = 0;
+let previousOperand = null;
 
-// append function
+// Append number function
 const appendNumber = (number) => {
   if (number === "." && result.includes(".")) return;
 
@@ -22,17 +22,95 @@ const appendNumber = (number) => {
   updateDisplay();
 };
 
-// function to update display
+// Function to update display
 const updateDisplay = () => {
-  resultElement.innerText = result;
+  if (operation) {
+    resultElement.innerText = `${previousOperand} ${operation} ${result}`;
+  } else {
+    resultElement.innerText = result;
+  }
 };
 
-// add eventlistener
+// Select operator function
+const selectOperator = (operateValue) => {
+  if (result === "") return;
+
+  if (operation !== "" && previousOperand !== null) {
+    calculateResult();
+  }
+
+  operation = operateValue;
+  previousOperand = parseFloat(result);
+  result = "";
+  updateDisplay();
+};
+
+// Calculate result function
+const calculateResult = () => {
+  let evaluatedResult;
+  const prev = previousOperand;
+  const current = parseFloat(result);
+
+  if (isNaN(prev) || isNaN(current)) return;
+
+  switch (operation) {
+    case "+":
+      evaluatedResult = prev + current;
+      break;
+    case "-":
+      evaluatedResult = prev - current;
+      break;
+    case "*":
+      evaluatedResult = prev * current;
+      break;
+    case "/":
+      if (current === 0) {
+        evaluatedResult = "Error"; // Handle division by zero
+      } else {
+        evaluatedResult = prev / current;
+      }
+      break;
+    default:
+      return;
+  }
+  result = evaluatedResult.toString();
+  operation = ""; // Reset operation after calculation
+  previousOperand = null; // Reset previous operand
+};
+
+// Add event listeners
 number.forEach((button) => {
   button.addEventListener("click", () => {
     appendNumber(button.innerText);
   });
 });
 
-// add eventlistener for decimal button
 decimalBtn.addEventListener("click", () => appendNumber("."));
+addBtn.addEventListener("click", () => selectOperator("+"));
+subtractBtn.addEventListener("click", () => selectOperator("-"));
+multiplyBtn.addEventListener("click", () => selectOperator("*"));
+divideBtn.addEventListener("click", () => selectOperator("/"));
+equalBtn.addEventListener("click", () => {
+  if (result === "") return;
+  calculateResult();
+  updateDisplay();
+});
+
+clearBtn.addEventListener("click", () => {
+  result = "";
+  operation = "";
+  previousOperand = null;
+  updateDisplay();
+});
+
+deleteBtn.addEventListener("click", () => {
+  if (operation !== "" && result === "") {
+    operation = "";
+    result = previousOperand;
+    previousOperand = null;
+    updateDisplay();
+  } else {
+    result = result.slice(0, -1);
+    updateDisplay();
+  }
+});
